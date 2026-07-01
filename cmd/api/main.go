@@ -1,12 +1,14 @@
 package main
 
 import (
+	"go-notify/internal/cache"
 	"go-notify/internal/handlers"
 	"log"
 	"net/http"
 )
 
 func main() {
+	cache.InitRedis()
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("POST /api/v1/notify", handlers.SendNotificationHandler)
