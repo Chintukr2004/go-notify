@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"go-notify/internal/broker"
 	"go-notify/internal/cache"
 	"go-notify/internal/models"
 	"net/http"
@@ -72,6 +73,25 @@ func SendNotificationHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// 3. Publish to Message Broker 
+	// Convert our struct back to a JSON byte array for the queue
+	payload, err := json.Marshal(req)
+	if err != nil {
+		http.Error(w, "Failed to process payload", http.StatusInternalServerError)
+		return
+	}
+
+	// Route based on type (e.g., "NOTIFY.EMAIL" or "NOTIFY.SMS")
+	subject := "NOTIFY." + string(req.Type)
+
+	// Publish the message to NATS
+	_, err = broker.JS.Publish(subject, payload)
+	if err != nil {
+		http.Error(w, "Failed to queue notification", http.StatusInternalServerError)
+		return
+	}
+
+	// 4. Success Response
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(w).Encode(map[string]string{

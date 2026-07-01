@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-notify/internal/broker"
 	"go-notify/internal/cache"
 	"go-notify/internal/handlers"
 	"log"
@@ -9,6 +10,7 @@ import (
 
 func main() {
 	cache.InitRedis()
+	broker.InitNATS()
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("POST /api/v1/notify", handlers.SendNotificationHandler)
