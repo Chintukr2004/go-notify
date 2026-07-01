@@ -1,0 +1,10 @@
+# Binaries
+/go-notify
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Environment variables
+.env
