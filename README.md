@@ -193,7 +193,6 @@ worker-1  | [DLQ] Message 8f9d2a1b... failed 3 times. Routing to DLQ.NOTIFY.
 
 ---
 
-*Designed and engineered with a focus on high-concurrency Go systems, event-driven architecture, and cloud-native reliability.*
 
 
 
