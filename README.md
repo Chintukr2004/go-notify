@@ -184,15 +184,5 @@ worker-1  | [DLQ] Message 8f9d2a1b... failed 3 times. Routing to DLQ.NOTIFY.
 
 ---
 
-## 👤 Author
-
-**Chintu Kumar**
-
-* 🐙 **GitHub:** [@Chintukr2004](https://www.google.com/search?q=https://github.com/Chintukr2004)
-* 📧 **Email:** `chintukr1904@gmail.com`
-
----
-
-
 
 
