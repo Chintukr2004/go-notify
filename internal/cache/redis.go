@@ -3,6 +3,7 @@ package cache
 import (
 	"context"
 	"log"
+	"os"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -11,8 +12,12 @@ var Client *redis.Client
 var Ctx = context.Background()
 
 func InitRedis() {
+	redisAddr := os.Getenv("REDIS_ADDR")
+	if redisAddr == "" {
+		redisAddr = "localhost:6379"
+	}
 	Client = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     redisAddr,
 		Password: "",
 		DB:       0,
 	})

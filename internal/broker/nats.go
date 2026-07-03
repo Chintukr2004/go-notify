@@ -2,6 +2,7 @@ package broker
 
 import (
 	"log"
+	"os"
 
 	"github.com/nats-io/nats.go"
 )
@@ -10,8 +11,11 @@ var JS nats.JetStreamContext
 
 func InitNATS() {
 	//1. Connect to local NATS server
-
-	nc, err := nats.Connect(nats.DefaultURL)
+	natsURL := os.Getenv("NATS_URL")
+	if natsURL == "" {
+		natsURL = nats.DefaultURL
+	}
+	nc, err := nats.Connect(natsURL)
 	if err != nil {
 		log.Fatalf("Failed to connect to NATS: %v", err)
 	}

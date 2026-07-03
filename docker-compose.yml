@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379" # Or 6380:6379 if you changed it earlier
+    volumes:
+      - redis_data:/data
+
+  nats:
+    image: nats:latest
+    command: ["--js"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
+  api:
+    build:
+      context: .
+      target: api
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_ADDR=redis:6379
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - redis
+      - nats
+
+  worker:
+    build:
+      context: .
+      target: worker
+    environment:
+      - NATS_URL=nats://nats:4222
+      - EMAIL_PROVIDER=smtp
+      # ... other env vars
+    depends_on:
+      - nats
+
+volumes:
+  redis_data:
