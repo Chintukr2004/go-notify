@@ -1,4 +1,3 @@
-```markdown
 # 🚀 Distributed Notification System (Microservice Architecture)
 
 An enterprise-grade, highly concurrent distributed notification platform built in Golang. This decoupled architecture routes asynchronous multi-channel notifications (Email, SMS) while guaranteeing at-least-once delivery, idempotency, rate-limiting, and automated Dead Letter Queue (DLQ) processing for third-party outages.
@@ -196,5 +195,5 @@ worker-1  | [DLQ] Message 8f9d2a1b... failed 3 times. Routing to DLQ.NOTIFY.
 
 *Designed and engineered with a focus on high-concurrency Go systems, event-driven architecture, and cloud-native reliability.*
 
-```
+
 
